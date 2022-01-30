@@ -36,24 +36,26 @@ oddSums = 0
 evenCount = 0
 oddCount = 0
 # error handling block starts
+
+# for each item in sorted_list
+for x in sorted_list:
+    # checking the item if it is odd or even
+    if x % 2 == 0:
+        # if even we increase respective variable
+        evenSums += x
+        evenCount += 1
+    # if odd:
+    else:
+        # we increase variables (sum and count) for odd numbers
+        oddSums += x
+        oddCount += 1
 try:
-    # for each item in sorted_list
-    for x in sorted_list:
-        # checking the item if it is odd or even
-        if x % 2 == 0:
-            # if even we increase respective variable
-            evenSums += x
-            evenCount += 1
-        # if odd:
-        else:
-            # we increase variables (sum and count) for odd numbers
-            oddSums += x
-            oddCount += 1
+    # here we print out even average and odd average
+    print("Even Average: " + str(evenSums / evenCount))
+    print("Odd Average: " + str(oddSums / oddCount))
 # the error handling block ends
 except IndexError as e:
     # if error handler will catch a mistake it will print it on the screen
     print(str(e))
 
-# here we print out even average and odd average
-print("Even Average: " + str(evenSums / evenCount))
-print("Odd Average: " + str(oddSums / oddCount))
+
