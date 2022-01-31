@@ -52,7 +52,7 @@ for x in sorted_list:
 
 try:
     # here we print out even average and odd average
-    print("Even Average: " + str(100 / 0))
+    print("Even Average: " + str(evenSums / evenCount))
     print("Odd Average: " + str(oddSums / oddCount))
 # the error handling block ends
 except ZeroDivisionError as e:
