@@ -49,12 +49,13 @@ for x in sorted_list:
         # we increase variables (sum and count) for odd numbers
         oddSums += x
         oddCount += 1
+
 try:
     # here we print out even average and odd average
-    print("Even Average: " + str(evenSums / evenCount))
+    print("Even Average: " + str(100 / 0))
     print("Odd Average: " + str(oddSums / oddCount))
 # the error handling block ends
-except IndexError as e:
+except ZeroDivisionError as e:
     # if error handler will catch a mistake it will print it on the screen
     print(str(e))
 
