@@ -55,8 +55,8 @@ try:
     print("Even Average: " + str(evenSums / evenCount))
     print("Odd Average: " + str(oddSums / oddCount))
 # the error handling block ends
-except ZeroDivisionError as e:
+except:
     # if error handler will catch a mistake it will print it on the screen
-    print(str(e))
+    print("There is a mistake. Seems like zero division problem...")
 
 
