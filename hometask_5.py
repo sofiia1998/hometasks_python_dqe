@@ -8,14 +8,17 @@ class Normalization:
 
     def text_normalization(self):
         self.str_sentences = ""
+        if (self.str_name[-1] == '.'): # remove the last period to avoid double periods in the last sentence
+            self.str_name = self.str_name[:-1]
         words = list(self.str_name.split("."))  # Create list based on each sentence.
-        for i in range(len(words)-1):  # Loop through list which is each sentence.
+        for i in range(len(words)):  # Loop through list which is each sentence.
             words[i] = words[i].strip()  # Remove any leading or trailing spaces.
             words[i] = words[i].strip(".")  # Remove any periods.
             words[i] = words[i][:1].upper() + words[i][1:]  # Concatenate string with first letter upper.
             self.str_sentences += words[i] + ".\n"  # Concatenate a final string with all sentences.
         return self.str_sentences
-
+# a = Normalization("Some text for the check. one more sentence.the last one.")
+# print(a.text_normalization())
 
 class Inputting:
     def __init__(self, blck="""Hello!
@@ -87,7 +90,7 @@ Your choice: """):
                 norm1 = Normalization(news_text)
                 norm = norm1.text_normalization()
                 text1 = AddToFile()
-                text1.add_to_file(f"News -------------------------\n{norm}{city}, {dt_string}\n------------------------------\n\n")
+                text1.add_to_file(f"News -------------------------\n{norm}{city.title()}, {dt_string}\n------------------------------\n\n")
                 input1.text_input(self.a)
             elif user_choice == 2:
                 ad_text = input("Write the private advertisement: ")
