@@ -1,4 +1,5 @@
-from datetime import datetime
+from datetime import datetime, date
+import calendar
 
 def text_normalization(strName):
     strSentences = ""
@@ -9,6 +10,17 @@ def text_normalization(strName):
         words[i] = words[i][:1].upper() + words[i][1:] # Concatenate string with first letter upper.
         strSentences += words[i] + ".\n" # Concatenate a final string with all sentences.
     return strSentences
+
+def input_date():
+    year = int(input("Input the expiration date. Year: "))
+    month = int(input("Input the expiration date. Month: "))
+    day = int(input("Input the expiration date. Day: "))
+    exp_date = date(year, month, day)
+    dt_today = datetime.date(datetime.now())
+    time_remaining = exp_date - dt_today
+    time_remaining1 = time_remaining.days
+    print(time_remaining1)
+    return time_remaining1, exp_date
 
 def add_to_file(text):
     try:
@@ -45,19 +57,24 @@ except:
 
 while user_choice:
     if user_choice == 1:
-        global news_text
         news_text = input("Write the news: ")
         city = input("The origin of the news (City): ")
         dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         a = text_normalization(news_text)
-        add_to_file(f"News -------------------------\n{a}{city}, {dt_string}\n")
+        add_to_file(f"News -------------------------\n{a}{city}, {dt_string}\n------------------------------\n\n")
         text_input(a1)
     elif user_choice == 2:
         ad_text = input("Write the private advertisement: ")
-        exp_date = input("Write an expiration date: ")
+        a = text_normalization(ad_text)
+        d, dt = input_date()
+        add_to_file(f"Private Ad -------------------\n{a}Actual until: {dt}, {d} days left\n------------------------------\n\n")
         text_input(a1)
     elif user_choice == 3:
         word = input("Write a word of the day: ")
+        a = text_normalization(word)
+        curr_date = date.today()
+        weekd = calendar.day_name[curr_date.weekday()]
+        add_to_file(f"A word of the day: -----------\n{a}Today is {weekd}\n------------------------------\n\n")
         text_input(a1)
     else:
         user_choice = False
