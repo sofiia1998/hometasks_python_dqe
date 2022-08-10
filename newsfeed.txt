@@ -1,0 +1,16 @@
+News -------------------------
+Software Requirement is detail description of the system under implementations.
+It outlines the practical usage of product or Service, Condition or capability to which a system must conform.
+Lutsk, 10/08/2022 15:14:52
+------------------------------
+
+Private Ad -------------------
+Software development life cycle (SDLC) models describe different phases of the software cycle and the order in which those phases are executed – Requirements gathering and analysis, Design, Implementation or coding, Testing, Deployment, Maintenance.
+Actual until: 2022-11-13, 95 days left
+------------------------------
+
+A word of the day: -----------
+Volupte.
+Today is Wednesday
+------------------------------
+
