@@ -1,8 +1,6 @@
-from hometask_5 import Operational1
+from hometask_6_module import FileParsing
 
 
 
-x = Operational1()
+x = FileParsing()
 x.main_code()
-
-
