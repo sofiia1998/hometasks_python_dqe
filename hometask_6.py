@@ -1,6 +1,5 @@
-from hometask_6_module import FileParsing
-
+from all_the_modules import FileParsing
 
 
 x = FileParsing()
-x.main_code()
+x.main_code6()

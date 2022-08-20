@@ -1,6 +1,0 @@
-['NEWS']
-['PRIVAT_AD']
-['WORD_OF_THE_DAY']
-['PRIVAT_AD', 'Software development life cycle (SDLC) models describe different phases of the software cycle and the order in which those phases are executed – Requirements gathering and analysis, Design, Implementation or coding, Testing, Deployment, Maintenance.', '2022', '15', '38']
-['PRIVAT_AD', 'Software development life cycle (SDLC) models describe different phases of the software cycle and the order in which those phases are executed – Requirements gathering and analysis, Design, Implementation or coding, Testing, Deployment, Maintenance.', '2022', '15', '38']
-['PRIVAT_AD', 'Software development life cycle (SDLC) models describe different phases of the software cycle and the order in which those phases are executed – Requirements gathering and analysis, Design, Implementation or coding, Testing, Deployment, Maintenance.', '2022', '15', '38']
