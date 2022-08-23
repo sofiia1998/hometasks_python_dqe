@@ -1,0 +1,22 @@
+{
+    "NEWS": {
+        "text_of_the_news": "It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.",
+        "city": "Lutsk"
+    },
+    "PRIVAT_AD": {
+            "text_of_the_ad": "Camera. good quality.",
+            "year": 2022,
+            "month": 11,
+            "day": 10
+    }
+,
+    "WORD_OF_THE_DAY": {
+        "word": "a word"
+    },
+    "PRIVAT_AD_Shortname": {
+        "text_of_the_ad": "Camera. good quality.",
+        "year": 2022,
+        "month": 11,
+        "day": 16
+    }
+}

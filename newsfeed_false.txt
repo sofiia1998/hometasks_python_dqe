@@ -1,0 +1,37 @@
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 15}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}
+{'word': 'a word'}
+{'text_of_the_news': 'It`s software Requirement is detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Lutsk'}
+[{'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}, {'text_of_the_ad': 'Camera. good quality.', 'year': 2022, 'month': 11, 'day': 14}]
+{'word': 'a word'}
+{'text_of_the_news': 'It`s sof detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Another'}
+[{'text_of_the_ad': 'Ca', 'year': 2023, 'month': 11, 'day': 14}, {'text_of_the_ad': 'Camera. go.', 'year': 2024, 'month': 11, 'day': 14}]
+{'word': 'a a word'}
+{'text_of_the_news': 'It`s sof detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Another'}
+[{'text_of_the_ad': 'Ca', 'year': 2023, 'month': 11, 'day': 14}, {'text_of_the_ad': 'Camera. go.', 'year': 2024, 'month': 11, 'day': 14}]
+{'word': 'a a word'}
+{'text_of_the_news': 'It`s sof detail description of the system under implementations.It outlines the practical usage of product or Service, Condition or capability to which a system must conform.', 'city': 'Another'}
+[{'text_of_the_ad': 'Ca', 'year': 2023, 'month': 11, 'day': 14}, {'text_of_the_ad': 'Camera. go.', 'year': 2024, 'month': 11, 'day': 14}]
+{'word': 'a a word'}
+[{'text_of_the_ad': 'Ca', 'year': 2023, 'month': 11, 'day': 14}, {'text_of_the_ad': 'Camera. go.', 'year': 2024, 'month': 11, 'day': 14}]

@@ -2,4 +2,5 @@ from all_the_modules import FileParsing
 
 
 x = FileParsing()
-x.main_code6()
+x.open_the_file_6()
+x.if_clause_file_parsing()
