@@ -5,6 +5,7 @@ import re
 import csv
 from collections import Counter
 import json
+import xml.etree.ElementTree as ET
 
 
 class Normalization:
@@ -157,7 +158,6 @@ class FileParsing:
         self.WORD_OF_THE_DAY = 'WORD_OF_THE_DAY'
 
         for i in range(len(self.listy1)):
-            print('it is NEWS line')
             len_attr = len(self.listy1[i])
             if self.listy1[i][0] == self.NEWS:
                 if len_attr == 3:
@@ -169,7 +169,7 @@ class FileParsing:
                         f"News -------------------------\n{norm}{self.listy1[i][2].title()}, {dt_string}\n------------------------------\n\n")
                 else:
                     text2 = AddToFile()
-                    text2.add_to_file_false_hometask6('hello' + "\n")
+                    text2.add_to_file_false_hometask6(str(self.listy1[i]) + "\n")
             elif self.listy1[i][0] == self.PRIVAT_AD:
                 if len_attr == 5:
                     norm1 = Normalization()
@@ -283,6 +283,68 @@ class FileParsing:
             else:
                 text2 = AddToFile()
                 text2.add_to_file_false_hometask6(str(self.json_dictionary[key]) + "\n")
+
+        # os.remove(r'C:\Users\Sofiia_Kalishchuk\hometasks_python_dqe\json_text.json')
+
+    def if_clause_xml_parsing(self):
+        xml_file = ET.parse('xml_text.xml')
+        root = xml_file.getroot()
+
+        NEWS = 'NEWS'
+        PRIVAT_AD = 'PRIVAT_AD'
+        WORD_OF_THE_DAY = 'WORD_OF_THE_DAY'
+
+        for i in range(len(root)):
+            elem = root[i]
+            whole_tag = ET.tostring(elem, encoding='unicode')
+            len_attr = len(root[i])
+            if root[i].tag.startswith(NEWS):
+                if len_attr == 2:
+                    norm1 = Normalization()
+                    norm = norm1.text_normalization(root[i][0].text)
+                    dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                    text1 = AddToFile()
+                    text1.add_to_file_hometask5(f"News -------------------------\n{norm}{root[i][1].text}, {dt_string}\n------------------------------\n\n")
+                else:
+                    text2 = AddToFile()
+                    text2.add_to_file_false_hometask6(whole_tag + "\n")
+            elif root[i].tag.startswith(PRIVAT_AD):
+                if len_attr == 4:
+                    norm1 = Normalization()
+                    norm = norm1.text_normalization(root[i][0].text)
+                    matched1 = re.match('[2][0][2-9][2-9]', root[i][1].text)
+                    if matched1:
+                        try:
+                            exp_date = date(int(root[i][1].text), int(root[i][2].text), int(root[i][3].text))
+                            dt_today = datetime.date(datetime.now())
+                            time_remaining = exp_date - dt_today
+                            time_remaining1 = time_remaining.days
+                            text1 = AddToFile()
+                            text1.add_to_file_hometask5(f"Private Ad -------------------\n{norm}Actual until: {exp_date}, {time_remaining1} days left\n------------------------------\n\n")
+                        except:
+                            text2 = AddToFile()
+                            text2.add_to_file_false_hometask6(whole_tag + "\n")
+                            pass
+                    else:
+                        text2 = AddToFile()
+                        text2.add_to_file_false_hometask6(whole_tag + "\n")
+                else:
+                    text2 = AddToFile()
+                    text2.add_to_file_false_hometask6(whole_tag + "\n")
+            elif root[i].tag.startswith(WORD_OF_THE_DAY):
+                if len_attr == 1:
+                    norm1 = Normalization()
+                    norm = norm1.text_normalization(root[i][0].text)
+                    curr_date = date.today()
+                    weekd = calendar.day_name[curr_date.weekday()]
+                    text1 = AddToFile()
+                    text1.add_to_file_hometask5(f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n")
+                else:
+                    text2 = AddToFile()
+                    text2.add_to_file_false_hometask6(whole_tag + "\n")
+            else:
+                text2 = AddToFile()
+                text2.add_to_file_false_hometask6(whole_tag + "\n")
 
         # os.remove(r'C:\Users\Sofiia_Kalishchuk\hometasks_python_dqe\data.txt')
 

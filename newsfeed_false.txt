@@ -35,3 +35,91 @@
 [{'text_of_the_ad': 'Ca', 'year': 2023, 'month': 11, 'day': 14}, {'text_of_the_ad': 'Camera. go.', 'year': 2024, 'month': 11, 'day': 14}]
 {'word': 'a a word'}
 [{'text_of_the_ad': 'Ca', 'year': 2023, 'month': 11, 'day': 14}, {'text_of_the_ad': 'Camera. go.', 'year': 2024, 'month': 11, 'day': 14}]
+<NEWS>
+        <news_text>Some text of the news. Another text of the news</news_text>
+        <city>Lviv</city>
+    </NEWS>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>12</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<WORD_OF_THE_DAY>
+        <a_word>Superfood</a_word>
+    </WORD_OF_THE_DAY>
+
+<NEWS>
+        <news_text>Some text of the news. Another text of the news</news_text>
+        <city>Lviv</city>
+    </NEWS>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>12</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<WORD_OF_THE_DAY>
+        <a_word>Superfood</a_word>
+    </WORD_OF_THE_DAY>
+
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>12</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>12</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>8</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>8</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>8</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>8</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>8</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    
+<PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>8</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    

@@ -1,0 +1,16 @@
+<TEXT>
+    <NEWS>
+        <news_text>Some text of the news. Another text of the news</news_text>
+        <city>Lviv</city>
+    </NEWS>
+    <PRIVAT_AD>
+        <ad_text>Some text of the ad. Another text of the ad</ad_text>
+        <year>2022</year>
+        <month>8</month>
+        <day>11</day>
+    </PRIVAT_AD>
+    <WORD_OF_THE_DAY>
+        <a_word>Superfood</a_word>
+    </WORD_OF_THE_DAY>
+</TEXT>
+    
