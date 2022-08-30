@@ -1,7 +1,7 @@
 <TEXT>
     <NEWS>
         <news_text>Some text of the news. Another text of the news</news_text>
-        <city>Lviv</city>
+        <city>Lutsk</city>
     </NEWS>
     <PRIVAT_AD>
         <ad_text>Some text of the ad. Another text of the ad</ad_text>
@@ -12,5 +12,9 @@
     <WORD_OF_THE_DAY>
         <a_word>Superfood</a_word>
     </WORD_OF_THE_DAY>
+    <NEWS>
+        <news_text>Some text of the news2. Another text of the news2</news_text>
+        <city>Kyiv</city>
+    </NEWS>
 </TEXT>
     

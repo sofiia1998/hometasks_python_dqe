@@ -123,3 +123,18 @@
         <day>11</day>
     </PRIVAT_AD>
     
+['News', 'Some text of the news. Another text of the news', 'Lviv']
+['News', 'Some text of the news2. Another text of the news2', 'Kyiv']
+['News', 'Some text of the news. Another text of the news', 'Lviv']
+['News', 'Some text of the news2. Another text of the news2', 'Kyiv']
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]
+['PRIVAT_AD', 'Camera. good quality.', 2022, 16, 10]

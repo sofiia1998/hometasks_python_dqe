@@ -21,7 +21,7 @@ v = []
 for i in range(len(dict_list)):
     k.append(list((dict_list[i].keys()))) # keys of each dictionary are now in the one list
     v.append(list((dict_list[i].values()))) # values of each dictionary are now in the one list
-print(k)
+print(v)
 
 k_unnested = list(chain.from_iterable(k)) # one list of all keys (without nested lists)
 v_unnested = list(chain.from_iterable(v)) # one list of all values (without nested lists)

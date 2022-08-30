@@ -1,8 +1,10 @@
 import json
 import os
-from all_the_modules import FileParsing
+from all_the_modules import FileParsing, AddToFile, HometaskFinal
+import xml.etree.ElementTree as ET
+
+x = HometaskFinal()
+x.while_loop()
 
 
-x = FileParsing()
-x.open_the_file_8()
-x.if_clause_json_file_parsing()
+

@@ -6,6 +6,7 @@ import csv
 from collections import Counter
 import json
 import xml.etree.ElementTree as ET
+import pyodbc
 
 
 class Normalization:
@@ -29,7 +30,10 @@ class Inputting:
     2 to add item to the \"Private ad\"
     3 to add item to the \"Word of the day\"
     4 to use the file 'data.txt'
-    5 to exit
+    5 to use the file 'json_text.json'
+    6 to use the file 'xml_text.xml'
+    7 to calculate the statistics in csv files
+    8 to exit
     
     Your choice: """, count=True, user_choice=True):
         self.blck1 = blck1
@@ -60,21 +64,9 @@ class Inputting:
 
 class AddToFile:
 
-    def add_to_file_hometask5(self, text):
+    def add_to_file(self, text, file):
         dirname = os.path.dirname(__file__)
-        filename = os.path.join(dirname, 'newsfeed.txt')
-        try:
-            with open(filename, "x") as f:
-                f.write(text)
-                f.close()
-        except:
-            f = open(filename, "a")
-            f.write(text)
-            f.close()
-
-    def add_to_file_false_hometask6(self, text):
-        dirname = os.path.dirname(__file__)
-        filename1 = os.path.join(dirname, 'newsfeed_false.txt')
+        filename1 = os.path.join(dirname, file)
         try:
             with open(filename1, "x") as f:
                 f.write(text)
@@ -84,6 +76,31 @@ class AddToFile:
             f.write(text)
             f.close()
             pass
+
+    def file_opening(self, input_file):
+        dirname = os.path.dirname(__file__)
+        filename = os.path.join(dirname, input_file)
+
+        try:
+            if 'txt' in input_file:
+                with open(filename) as f:
+                    contents = f.readlines()
+                    print(contents)
+                return contents
+            elif 'json' in input_file:
+                json_dictionary = json.load(open(filename))
+                print(json_dictionary)
+                return json_dictionary
+            elif 'xml' in filename:
+                xml_file = ET.parse(filename)
+                print(xml_file)
+                return xml_file
+            elif input_file == 'newsfeed.txt':
+                with open(filename) as file:
+                    data = file.read()
+                return data
+        except IndexError:
+            print('there is no such file')
 
 
 class OperationalHometask5:
@@ -131,234 +148,140 @@ class OperationalHometask5:
 
 class FileParsing:
 
-    def open_the_file_6(self):
-        dirname = os.path.dirname(__file__)
-        filename = os.path.join(dirname, 'data.txt')
-
-        try:
-            with open(filename) as f:
-                contents = f.readlines()
-                print(contents)
-        except IndexError:
-            print('there is no file')
+    def file_txt_preparation(self, contents):
 
         contents1 = [contents[i].strip("\n") for i in range(len(contents))]
         print(contents1)
 
-        self.listy1 = [contents1[i].split("/") for i in range(len(contents1))]
-        self.listy1 = [list(filter(None, self.listy1[i])) for i in range(len(self.listy1))]
-        self.listy1 = list(filter(None, self.listy1))
-        print(self.listy1)
-        return self.listy1
+        listy1 = [contents1[i].split("/") for i in range(len(contents1))]
+        listy1 = [list(filter(None, listy1[i])) for i in range(len(listy1))]
+        listy1 = list(filter(None, listy1))
+        print(listy1)
+        return listy1
 
+    def file_json_preparation(self, json_dictionary):
 
-    def if_clause_file_parsing(self):
-        self.NEWS = 'NEWS'
-        self.PRIVAT_AD = 'PRIVAT_AD'
-        self.WORD_OF_THE_DAY = 'WORD_OF_THE_DAY'
+        list_of_keys = [key for key in json_dictionary]
+        print(list_of_keys)
 
-        for i in range(len(self.listy1)):
-            len_attr = len(self.listy1[i])
-            if self.listy1[i][0] == self.NEWS:
-                if len_attr == 3:
-                    norm1 = Normalization()
-                    norm = norm1.text_normalization(self.listy1[i][1])
-                    dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-                    text1 = AddToFile()
-                    text1.add_to_file_hometask5(
-                        f"News -------------------------\n{norm}{self.listy1[i][2].title()}, {dt_string}\n------------------------------\n\n")
-                else:
-                    text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(str(self.listy1[i]) + "\n")
-            elif self.listy1[i][0] == self.PRIVAT_AD:
-                if len_attr == 5:
-                    norm1 = Normalization()
-                    norm = norm1.text_normalization(self.listy1[i][1])
-                    matched1 = re.match('[2][0][2-9][2-9]', (self.listy1[i][2]))
-                    if matched1:
-                        try:
-                            exp_date = date(int(self.listy1[i][2]), int(self.listy1[i][3]), int(self.listy1[i][4]))
-                            dt_today = datetime.date(datetime.now())
-                            time_remaining = exp_date - dt_today
-                            time_remaining1 = time_remaining.days
-                            text1 = AddToFile()
-                            text1.add_to_file_hometask5(
-                                f"Private Ad -------------------\n{norm}Actual until: {exp_date}, {time_remaining1} days left\n------------------------------\n\n")
-                        except:
-                            text2 = AddToFile()
-                            text2.add_to_file_false_hometask6(str(self.listy1[i]) + "\n")
-                            pass
-                    else:
-                        text2 = AddToFile()
-                        text2.add_to_file_false_hometask6(str(self.listy1[i]) + "\n")
-                else:
-                    text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(str(self.listy1[i]) + "\n")
-            elif self.listy1[i][0] == self.WORD_OF_THE_DAY:
-                if len_attr == 2:
-                    norm1 = Normalization()
-                    norm = norm1.text_normalization(self.listy1[i][1])
-                    curr_date = date.today()
-                    weekd = calendar.day_name[curr_date.weekday()]
-                    text1 = AddToFile()
-                    text1.add_to_file_hometask5(
-                        f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n")
-                else:
-                    text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(str(self.listy1[i]) + "\n")
-            else:
-                text2 = AddToFile()
-                text2.add_to_file_false_hometask6(str(self.listy1[i]) + "\n")
+        list_of_keys_dicts = list(json_dictionary.values())
+        print(list_of_keys_dicts)
+        list_of_values = [list_of_keys_dicts[i].values() for i in range(len(list_of_keys_dicts))]
+        print(list(list_of_values[0]))
+        new_list = [list(list_of_values[i]) for i in range(len(list_of_values))]
+        print(new_list)
 
-        # os.remove(r'C:\Users\Sofiia_Kalishchuk\hometasks_python_dqe\data.txt')
+        for i in range(len(new_list)):
+            new_list[i].insert(0, list_of_keys[i])
+        print(new_list)
+        new_list = [list(filter(None, new_list[i])) for i in range(len(new_list))]
+        new_list = list(filter(None, new_list))
+        return new_list
 
-    def open_the_file_8(self):
-        dirname = os.path.dirname(__file__)
-        filename = os.path.join(dirname, 'json_text.json')
+    def file_xml_preparation(self, xml_file):
 
-        try:
-            self.json_dictionary = json.load(open(filename))
-        except IndexError:
-            print('there is no such file')
-        self.list_of_keys = [key for key in self.json_dictionary]
-
-    def if_clause_json_file_parsing(self):
-        self.NEWS = 'NEWS'
-        self.PRIVAT_AD = 'PRIVAT_AD'
-        self.WORD_OF_THE_DAY = 'WORD_OF_THE_DAY'
-
-        for i in range(len(self.list_of_keys)):
-            key = self.list_of_keys[i]
-            len_attr = len(self.json_dictionary[key])
-            if self.list_of_keys[i].startswith(self.NEWS):
-                print('it is NEWS line')
-                if len_attr == 2:
-                    norm1 = Normalization()
-                    norm = norm1.text_normalization(list(self.json_dictionary[key].values())[0])
-                    dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-                    text1 = AddToFile()
-                    text1.add_to_file_hometask5(
-                        f"News -------------------------\n{norm}{list(self.json_dictionary[key].values())[1].title()}, {dt_string}\n------------------------------\n\n")
-                else:
-                    text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(str(self.json_dictionary[key]) + "\n")
-            elif self.list_of_keys[i].startswith(self.PRIVAT_AD):
-                print('it is ADs line')
-                if len_attr == 4:
-                    norm1 = Normalization()
-                    norm = norm1.text_normalization(list(self.json_dictionary[key].values())[0])
-                    matched1 = re.match('[2][0][2-9][2-9]', str(list(self.json_dictionary[key].values())[1]))
-                    if matched1:
-                        try:
-                            exp_date = date(int(list(self.json_dictionary[key].values())[1]), int(list(self.json_dictionary[key].values())[2]), int(list(self.json_dictionary[key].values())[3]))
-                            dt_today = datetime.date(datetime.now())
-                            time_remaining = exp_date - dt_today
-                            time_remaining1 = time_remaining.days
-                            text1 = AddToFile()
-                            text1.add_to_file_hometask5(
-                                f"Private Ad -------------------\n{norm}Actual until: {exp_date}, {time_remaining1} days left\n------------------------------\n\n")
-                        except:
-                            text2 = AddToFile()
-                            text2.add_to_file_false_hometask6(str(self.json_dictionary[key]) + "\n")
-                            pass
-                    else:
-                        text2 = AddToFile()
-                        text2.add_to_file_false_hometask6(str(self.json_dictionary[key]) + "\n")
-                else:
-                    text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(str(self.json_dictionary[key]) + "\n")
-            elif self.list_of_keys[i].startswith(self.WORD_OF_THE_DAY):
-                print('it is WORD OF THE DAY line')
-                if len_attr == 1:
-                    norm1 = Normalization()
-                    norm = norm1.text_normalization(list(self.json_dictionary[key].values())[0])
-                    curr_date = date.today()
-                    weekd = calendar.day_name[curr_date.weekday()]
-                    text1 = AddToFile()
-                    text1.add_to_file_hometask5(
-                        f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n")
-                else:
-                    text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(str(self.json_dictionary[key]) + "\n")
-            else:
-                text2 = AddToFile()
-                text2.add_to_file_false_hometask6(str(self.json_dictionary[key]) + "\n")
-
-        # os.remove(r'C:\Users\Sofiia_Kalishchuk\hometasks_python_dqe\json_text.json')
-
-    def if_clause_xml_parsing(self):
-        xml_file = ET.parse('xml_text.xml')
         root = xml_file.getroot()
+        list_of_text_all = []
+        for child in root.iter('NEWS'):
+            list_of_text = ['NEWS', '', '']
+            for text in child:
+                if text.tag == 'news_text':
+                    list_of_text[1] = text.text
+                elif text.tag == 'city':
+                    list_of_text[2] = text.text
+            list_of_text_all.append(list_of_text)
+        for child in root.iter('PRIVAT_AD'):
+            list_of_text = ['PRIVAT_AD', '', '', '', '']
+            for text in child:
+                if text.tag == 'ad_text':
+                    list_of_text[1] = text.text
+                elif text.tag == 'year':
+                    list_of_text[2] = text.text
+                elif text.tag == 'month':
+                    list_of_text[3] = text.text
+                elif text.tag == 'day':
+                    list_of_text[4] = text.text
+            list_of_text_all.append(list_of_text)
+        for child in root.iter('WORD_OF_THE_DAY'):
+            list_of_text = ['WORD_OF_THE_DAY', '']
+            for text in child:
+                if text.tag == 'a_word':
+                    list_of_text[1] = text.text
+            list_of_text_all.append(list_of_text)
 
+        print(list_of_text_all)
+        list_of_text_all = [list(filter(None, list_of_text_all[i])) for i in range(len(list_of_text_all))]
+        list_of_text_all = list(filter(None, list_of_text_all))
+        return list_of_text_all
+
+    def if_clause_any_file_parsing(self, listy):
         NEWS = 'NEWS'
         PRIVAT_AD = 'PRIVAT_AD'
         WORD_OF_THE_DAY = 'WORD_OF_THE_DAY'
 
-        for i in range(len(root)):
-            elem = root[i]
-            whole_tag = ET.tostring(elem, encoding='unicode')
-            len_attr = len(root[i])
-            if root[i].tag.startswith(NEWS):
-                if len_attr == 2:
+        for i in range(len(listy)):
+            len_attr = len(listy[i])
+            if listy[i][0].startswith(NEWS):
+                print('This is NEWS attribute')
+                if len_attr == 3:
                     norm1 = Normalization()
-                    norm = norm1.text_normalization(root[i][0].text)
+                    norm = norm1.text_normalization(listy[i][1])
+                    city = str(listy[i][2]).replace(" ", "")
                     dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                     text1 = AddToFile()
-                    text1.add_to_file_hometask5(f"News -------------------------\n{norm}{root[i][1].text}, {dt_string}\n------------------------------\n\n")
+                    text1.add_to_file(
+                        f"News -------------------------\n{norm}{city.title()}, {dt_string}\n------------------------------\n\n", 'newsfeed.txt')
                 else:
                     text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(whole_tag + "\n")
-            elif root[i].tag.startswith(PRIVAT_AD):
-                if len_attr == 4:
+                    text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
+            elif listy[i][0].startswith(PRIVAT_AD):
+                print('This is PRIVAT_AD attribute')
+                if len_attr == 5:
                     norm1 = Normalization()
-                    norm = norm1.text_normalization(root[i][0].text)
-                    matched1 = re.match('[2][0][2-9][2-9]', root[i][1].text)
+                    norm = norm1.text_normalization(listy[i][1])
+                    matched1 = re.match('[2][0][2-9][2-9]', str(listy[i][2]))
                     if matched1:
                         try:
-                            exp_date = date(int(root[i][1].text), int(root[i][2].text), int(root[i][3].text))
+                            exp_date = date(int(listy[i][2]), int(listy[i][3]), int(listy[i][4]))
                             dt_today = datetime.date(datetime.now())
                             time_remaining = exp_date - dt_today
                             time_remaining1 = time_remaining.days
                             text1 = AddToFile()
-                            text1.add_to_file_hometask5(f"Private Ad -------------------\n{norm}Actual until: {exp_date}, {time_remaining1} days left\n------------------------------\n\n")
+                            text1.add_to_file(
+                                f"Private Ad -------------------\n{norm}Actual until: {exp_date}, {time_remaining1} days left\n------------------------------\n\n", 'newsfeed.txt')
                         except:
                             text2 = AddToFile()
-                            text2.add_to_file_false_hometask6(whole_tag + "\n")
+                            text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
                             pass
                     else:
                         text2 = AddToFile()
-                        text2.add_to_file_false_hometask6(whole_tag + "\n")
+                        text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
                 else:
                     text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(whole_tag + "\n")
-            elif root[i].tag.startswith(WORD_OF_THE_DAY):
-                if len_attr == 1:
+                    text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
+            elif listy[i][0].startswith(WORD_OF_THE_DAY):
+                print('This is WORD_OF_THE_DAY attribute')
+                if len_attr == 2:
                     norm1 = Normalization()
-                    norm = norm1.text_normalization(root[i][0].text)
+                    norm = norm1.text_normalization(listy[i][1])
                     curr_date = date.today()
                     weekd = calendar.day_name[curr_date.weekday()]
                     text1 = AddToFile()
-                    text1.add_to_file_hometask5(f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n")
+                    text1.add_to_file(
+                        f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n", 'newsfeed.txt')
                 else:
                     text2 = AddToFile()
-                    text2.add_to_file_false_hometask6(whole_tag + "\n")
+                    text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
             else:
                 text2 = AddToFile()
-                text2.add_to_file_false_hometask6(whole_tag + "\n")
+                text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
 
         # os.remove(r'C:\Users\Sofiia_Kalishchuk\hometasks_python_dqe\data.txt')
 
 
 class MakeTwoCsvFiles:
 
-    def first_csv_file(self):
-        try:
-            dirname = os.path.dirname(__file__)
-            filename = os.path.join(dirname, 'newsfeed.txt')
-            with open(filename) as file:
-                data = file.read()
-        except IndexError:
-            print('there is no file')
+    def first_csv_file(self, data):
 
         counts = Counter(re.findall('\w+', data))
         list1 = list(counts.keys())
@@ -369,14 +292,7 @@ class MakeTwoCsvFiles:
             writer = csv.writer(csvfile, 'unix')
             writer.writerow(list3)
 
-    def second_csv_file(self):
-        try:
-            dirname = os.path.dirname(__file__)
-            filename = os.path.join(dirname, 'newsfeed.txt')
-            with open(filename) as file:
-                data = file.read()
-        except IndexError:
-            print('there is no file')
+    def second_csv_file(self, data):
 
         c = re.findall('\w+', data)
         c1 = ''.join(c)
@@ -458,9 +374,9 @@ class MakeTwoCsvFiles:
         #         print(row['letter'])
 
 
-class OperationalHometask7:
+class HometaskFinal:
 
-    def while_loop7(self):
+    def while_loop(self):
         input1 = Inputting()
         input1.error_handling_for_input()
         while input1.user_choice:
@@ -471,8 +387,8 @@ class OperationalHometask7:
                 norm1 = Normalization()
                 norm = norm1.text_normalization(news_text)
                 text1 = AddToFile()
-                text1.add_to_file_hometask5(
-                    f"News -------------------------\n{norm}{city.title()},{dt_string}\n------------------------------\n\n")
+                text1.add_to_file(
+                    f"News -------------------------\n{norm}{city.title()},{dt_string}\n------------------------------\n\n", 'newsfeed.txt')
                 input1.error_handling_for_input()
             elif input1.user_choice == 2:
                 ad_text = input("Write the private advertisement: ")
@@ -480,8 +396,8 @@ class OperationalHometask7:
                 norm = norm1.text_normalization(ad_text)
                 d, dt = input1.input_date_hometask5()
                 text1 = AddToFile()
-                text1.add_to_file_hometask5(
-                    f"Private Ad -------------------\n{norm}Actual until: {dt}, {d} days left\n------------------------------\n\n")
+                text1.add_to_file(
+                    f"Private Ad -------------------\n{norm}Actual until: {dt}, {d} days left\n------------------------------\n\n", 'newsfeed.txt')
                 input1.error_handling_for_input()
             elif input1.user_choice == 3:
                 word = input("Write a word of the day: ")
@@ -490,21 +406,50 @@ class OperationalHometask7:
                 curr_date = date.today()
                 weekd = calendar.day_name[curr_date.weekday()]
                 text1 = AddToFile()
-                text1.add_to_file_hometask5(
-                    f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n")
+                text1.add_to_file(
+                    f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n", 'newsfeed.txt')
                 input1.error_handling_for_input()
             elif input1.user_choice == 4:
-                x = FileParsing()
-                x.open_the_file_6()
-                x1 = MakeTwoCsvFiles()
-                x1.first_csv_file()
-                x1.second_csv_file()
+                x = AddToFile()
+                a = x.file_opening('data.txt')
+                b = FileParsing()
+                c = b.file_txt_preparation(a)
+                b.if_clause_any_file_parsing(c)
                 input1.error_handling_for_input()
             elif input1.user_choice == 5:
+                x = AddToFile()
+                a = x.file_opening('json_text.json')
+                b = FileParsing()
+                c = b.file_json_preparation(a)
+                b.if_clause_any_file_parsing(c)
+                input1.error_handling_for_input()
+            elif input1.user_choice == 6:
+                x = AddToFile()
+                a = x.file_opening('xml_text.xml')
+                b = FileParsing()
+                c = b.file_xml_preparation(a)
+                b.if_clause_any_file_parsing(c)
+                input1.error_handling_for_input()
+            elif input1.user_choice == 7:
+                x = AddToFile()
+                a = x.file_opening('newsfeed.txt')
+                x1 = MakeTwoCsvFiles()
+                x1.first_csv_file(a)
+                x1.second_csv_file(a)
+                input1.error_handling_for_input()
+            elif input1.user_choice == 8:
                 print("The end!")
                 break
             else:
                 print("Please, type only 1, 2, 3, or 4")
                 input1.error_handling_for_input()
+
+class SaveRecordsInTheDatabase:
+
+    def select(self):
+
+        connection = pyodbc.connect('DRIVER={Sqlite3 ODBC Driver};Direct=True;Database=hometask_10.db;String Types=Unicode')
+        cursor = connection.cursor()
+        pass
 
 

@@ -5,12 +5,6 @@
 #
 # root = xml_file.getroot()
 
-from all_the_modules import FileParsing
-
-
-x = FileParsing()
-x.if_clause_xml_parsing()
-
 
 
 # elem = root[0]
