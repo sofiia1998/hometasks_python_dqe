@@ -32,8 +32,7 @@ class Inputting:
     4 to use the file 'data.txt'
     5 to use the file 'json_text.json'
     6 to use the file 'xml_text.xml'
-    7 to calculate the statistics in csv files
-    8 to exit
+    7 to exit
     
     Your choice: """, count=True, user_choice=True):
         self.blck1 = blck1
@@ -82,16 +81,16 @@ class AddToFile:
         filename = os.path.join(dirname, input_file)
 
         try:
-            if 'txt' in input_file:
+            if input_file == 'data.txt':
                 with open(filename) as f:
                     contents = f.readlines()
                     print(contents)
                 return contents
-            elif 'json' in input_file:
+            elif input_file == 'json_text.json':
                 json_dictionary = json.load(open(filename))
                 print(json_dictionary)
                 return json_dictionary
-            elif 'xml' in filename:
+            elif input_file == 'xml_text.xml':
                 xml_file = ET.parse(filename)
                 print(xml_file)
                 return xml_file
@@ -116,8 +115,8 @@ class OperationalHometask5:
                 norm1 = Normalization()
                 norm = norm1.text_normalization(news_text)
                 text1 = AddToFile()
-                text1.add_to_file_hometask5(
-                    f"News -------------------------\n{norm}{city.title()},{dt_string}\n------------------------------\n\n")
+                text1.add_to_file(
+                    f"News -------------------------\n{norm}{city.title()},{dt_string}\n------------------------------\n\n", 'newsfeed.txt')
                 input1.error_handling_for_input()
             elif input1.user_choice == 2:
                 ad_text = input("Write the private advertisement: ")
@@ -125,8 +124,8 @@ class OperationalHometask5:
                 norm = norm1.text_normalization(ad_text)
                 d, dt = input1.input_date_hometask5()
                 text1 = AddToFile()
-                text1.add_to_file_hometask5(
-                    f"Private Ad -------------------\n{norm}Actual until: {dt}, {d} days left\n------------------------------\n\n")
+                text1.add_to_file(
+                    f"Private Ad -------------------\n{norm}Actual until: {dt}, {d} days left\n------------------------------\n\n", 'newsfeed.txt')
                 input1.error_handling_for_input()
             elif input1.user_choice == 3:
                 word = input("Write a word of the day: ")
@@ -135,8 +134,8 @@ class OperationalHometask5:
                 curr_date = date.today()
                 weekd = calendar.day_name[curr_date.weekday()]
                 text1 = AddToFile()
-                text1.add_to_file_hometask5(
-                    f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n")
+                text1.add_to_file(
+                    f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n", 'newsfeed.txt')
                 input1.error_handling_for_input()
             elif input1.user_choice == 4:
                 print("The end!")
@@ -223,19 +222,25 @@ class FileParsing:
             len_attr = len(listy[i])
             if listy[i][0].startswith(NEWS):
                 print('This is NEWS attribute')
+                news_final_list = []
                 if len_attr == 3:
                     norm1 = Normalization()
                     norm = norm1.text_normalization(listy[i][1])
                     city = str(listy[i][2]).replace(" ", "")
-                    dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+                    dt_string = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
                     text1 = AddToFile()
                     text1.add_to_file(
                         f"News -------------------------\n{norm}{city.title()}, {dt_string}\n------------------------------\n\n", 'newsfeed.txt')
+                    news_final_list = news_final_list + [norm, city.title(), dt_string]
+                    y = DBConnection()
+                    y.create_table('NEWS')
+                    y.insert('NEWS', news_final_list)
                 else:
                     text2 = AddToFile()
                     text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
             elif listy[i][0].startswith(PRIVAT_AD):
                 print('This is PRIVAT_AD attribute')
+                news_final_list = []
                 if len_attr == 5:
                     norm1 = Normalization()
                     norm = norm1.text_normalization(listy[i][1])
@@ -249,6 +254,10 @@ class FileParsing:
                             text1 = AddToFile()
                             text1.add_to_file(
                                 f"Private Ad -------------------\n{norm}Actual until: {exp_date}, {time_remaining1} days left\n------------------------------\n\n", 'newsfeed.txt')
+                            news_final_list = news_final_list + [norm, exp_date, time_remaining1]
+                            y = DBConnection()
+                            y.create_table('PRIVAT_AD')
+                            y.insert('PRIVAT_AD', news_final_list)
                         except:
                             text2 = AddToFile()
                             text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
@@ -261,14 +270,19 @@ class FileParsing:
                     text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
             elif listy[i][0].startswith(WORD_OF_THE_DAY):
                 print('This is WORD_OF_THE_DAY attribute')
+                news_final_list = []
                 if len_attr == 2:
                     norm1 = Normalization()
                     norm = norm1.text_normalization(listy[i][1])
                     curr_date = date.today()
-                    weekd = calendar.day_name[curr_date.weekday()]
+                    weekday = calendar.day_name[curr_date.weekday()]
                     text1 = AddToFile()
                     text1.add_to_file(
-                        f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n", 'newsfeed.txt')
+                        f"A word of the day: -----------\n{norm}Today is {weekday}\n------------------------------\n\n", 'newsfeed.txt')
+                    news_final_list = news_final_list + [norm, weekday]
+                    y = DBConnection()
+                    y.create_table('WORD_OF_THE_DAY')
+                    y.insert('WORD_OF_THE_DAY', news_final_list)
                 else:
                     text2 = AddToFile()
                     text2.add_to_file((str(listy[i]) + "\n"), 'newsfeed_false.txt')
@@ -319,7 +333,7 @@ class MakeTwoCsvFiles:
             for r in range(len(upper)):
                 lowercase_letter = upper[r]
                 if lowercase_letter.lower() == lower[low]:
-                    print('we have a match')
+                    #print('we have a match')
                     matchy_list.append(lower[low])
 
         seen = set()  # set for all letters from all dictionaries without duplication
@@ -348,13 +362,6 @@ class MakeTwoCsvFiles:
             summy = first + second
             sum_for_matched.append(summy)
 
-        # print(text1)
-        # print(lower)
-        # print(sum_for_matched)
-        # print(matchy_list)
-        # print(not_matchy_list)
-        # print(upper_values)
-
         with open('text2.csv', 'w', newline='') as csvfile:
             headers = ['letter', 'cout_all', 'count_uppercase', 'percentage']
             writer = csv.DictWriter(csvfile, fieldnames=headers)
@@ -368,10 +375,67 @@ class MakeTwoCsvFiles:
                     {'letter': not_matchy_list[i], 'cout_all': not_matchy_list_values[i], 'count_uppercase': 0,
                      'percentage': ((not_matchy_list_values[i]) / sum1) * 100})
 
-        # with open('text2.csv', 'r', newline='') as csvfile:
-        #     reader = csv.DictReader(csvfile)
-        #     for row in reader:
-        #         print(row['letter'])
+
+class DBConnection:
+
+    def __init__(self):
+        with pyodbc.connect('DRIVER={Sqlite3 ODBC Driver};Direct=True;Database=hometask_10.db;String Types=Unicode') as self.connection:
+            self.cursor = self.connection.cursor()
+
+    def create_table(self, table_name):
+
+        if table_name == 'NEWS':
+            if self.cursor.tables(table='NEWS', tableType='TABLE').fetchone():
+                print("table NEWS exists")
+            else:
+                sql_text = f'''CREATE TABLE {table_name}(
+                            news varchar(500) not null PRIMARY KEY,
+                            city varchar(30) not null,
+                            todays_date varchar(30) not null
+                            )'''
+                self.cursor.execute(sql_text)
+                print(f"Table {table_name} has been created successfully !!")
+                self.connection.commit()
+        elif table_name == 'PRIVAT_AD':
+            if self.cursor.tables(table='PRIVAT_AD', tableType='TABLE').fetchone():
+                print("table PRIVAT_AD exists")
+            else:
+                sql_text = f'''CREATE TABLE {table_name}(
+                            privat_ad varchar(200) not null PRIMARY KEY,
+                            actual_until varchar(30) not null,
+                            days_left int not null
+                            )'''
+                self.cursor.execute(sql_text)
+                print(f"Table {table_name} has been created successfully !!")
+                self.connection.commit()
+        elif table_name == 'WORD_OF_THE_DAY':
+            if self.cursor.tables(table='WORD_OF_THE_DAY', tableType='TABLE').fetchone():
+                print("table WORD_OF_THE_DAY exists")
+            else:
+                sql_text = f'''CREATE TABLE {table_name}(
+                            a_word varchar(30) not null PRIMARY KEY,
+                            day_of_the_week varchar(11) not null
+                            )'''
+                self.cursor.execute(sql_text)
+                print(f"Table {table_name} has been created successfully !!")
+                self.connection.commit()
+
+    def insert(self, table_name, listt):
+        if table_name == 'NEWS':
+            self.cursor.execute('insert into NEWS(news, city, todays_date) values(?, ?, ?)', listt[0], listt[1], str(listt[2]))
+        elif table_name == 'PRIVAT_AD':
+            self.cursor.execute('insert into PRIVAT_AD(privat_ad, actual_until, days_left) values(?, ?, ?)', listt[0], str(listt[1]),
+                                listt[2])
+        elif table_name == 'WORD_OF_THE_DAY':
+            self.cursor.execute('insert into WORD_OF_THE_DAY(a_word, day_of_the_week) values(?, ?)', listt[0],
+                                listt[1])
+        print(f"Row was inserted  into {table_name} successfully !!")
+        self.connection.commit()
+
+    def select(self):
+        self.cursor.execute('SELECT * FROM NEWS ')
+        rows = self.cursor.fetchall()
+        print(rows)
 
 
 class HometaskFinal:
@@ -386,18 +450,26 @@ class HometaskFinal:
                 dt_string = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
                 norm1 = Normalization()
                 norm = norm1.text_normalization(news_text)
-                text1 = AddToFile()
-                text1.add_to_file(
+                x = AddToFile()
+                x.add_to_file(
                     f"News -------------------------\n{norm}{city.title()},{dt_string}\n------------------------------\n\n", 'newsfeed.txt')
+                a = x.file_opening('newsfeed.txt')
+                x1 = MakeTwoCsvFiles()
+                x1.first_csv_file(a)
+                x1.second_csv_file(a)
                 input1.error_handling_for_input()
             elif input1.user_choice == 2:
                 ad_text = input("Write the private advertisement: ")
                 norm1 = Normalization()
                 norm = norm1.text_normalization(ad_text)
                 d, dt = input1.input_date_hometask5()
-                text1 = AddToFile()
-                text1.add_to_file(
+                x = AddToFile()
+                x.add_to_file(
                     f"Private Ad -------------------\n{norm}Actual until: {dt}, {d} days left\n------------------------------\n\n", 'newsfeed.txt')
+                a = x.file_opening('newsfeed.txt')
+                x1 = MakeTwoCsvFiles()
+                x1.first_csv_file(a)
+                x1.second_csv_file(a)
                 input1.error_handling_for_input()
             elif input1.user_choice == 3:
                 word = input("Write a word of the day: ")
@@ -405,9 +477,13 @@ class HometaskFinal:
                 norm = norm1.text_normalization(word)
                 curr_date = date.today()
                 weekd = calendar.day_name[curr_date.weekday()]
-                text1 = AddToFile()
-                text1.add_to_file(
+                x = AddToFile()
+                x.add_to_file(
                     f"A word of the day: -----------\n{norm}Today is {weekd}\n------------------------------\n\n", 'newsfeed.txt')
+                a = x.file_opening('newsfeed.txt')
+                x1 = MakeTwoCsvFiles()
+                x1.first_csv_file(a)
+                x1.second_csv_file(a)
                 input1.error_handling_for_input()
             elif input1.user_choice == 4:
                 x = AddToFile()
@@ -415,6 +491,10 @@ class HometaskFinal:
                 b = FileParsing()
                 c = b.file_txt_preparation(a)
                 b.if_clause_any_file_parsing(c)
+                d = x.file_opening('newsfeed.txt')
+                x1 = MakeTwoCsvFiles()
+                x1.first_csv_file(d)
+                x1.second_csv_file(d)
                 input1.error_handling_for_input()
             elif input1.user_choice == 5:
                 x = AddToFile()
@@ -422,6 +502,10 @@ class HometaskFinal:
                 b = FileParsing()
                 c = b.file_json_preparation(a)
                 b.if_clause_any_file_parsing(c)
+                d = x.file_opening('newsfeed.txt')
+                x1 = MakeTwoCsvFiles()
+                x1.first_csv_file(d)
+                x1.second_csv_file(d)
                 input1.error_handling_for_input()
             elif input1.user_choice == 6:
                 x = AddToFile()
@@ -429,27 +513,16 @@ class HometaskFinal:
                 b = FileParsing()
                 c = b.file_xml_preparation(a)
                 b.if_clause_any_file_parsing(c)
+                d = x.file_opening('newsfeed.txt')
+                x1 = MakeTwoCsvFiles()
+                x1.first_csv_file(d)
+                x1.second_csv_file(d)
                 input1.error_handling_for_input()
             elif input1.user_choice == 7:
-                x = AddToFile()
-                a = x.file_opening('newsfeed.txt')
-                x1 = MakeTwoCsvFiles()
-                x1.first_csv_file(a)
-                x1.second_csv_file(a)
-                input1.error_handling_for_input()
-            elif input1.user_choice == 8:
                 print("The end!")
                 break
             else:
                 print("Please, type only 1, 2, 3, or 4")
                 input1.error_handling_for_input()
-
-class SaveRecordsInTheDatabase:
-
-    def select(self):
-
-        connection = pyodbc.connect('DRIVER={Sqlite3 ODBC Driver};Direct=True;Database=hometask_10.db;String Types=Unicode')
-        cursor = connection.cursor()
-        pass
 
 
